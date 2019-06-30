@@ -1,0 +1,8 @@
+﻿<Root>
+  <Foo>
+    <FooBar>1</FooBar>
+    <Bar>
+      <FooBar>2</FooBar>
+    </Bar>
+  </Foo>
+</Root>
