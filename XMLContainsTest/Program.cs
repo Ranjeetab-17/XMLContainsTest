@@ -13,38 +13,60 @@ namespace XMLContainsTest
     {
         static void Main(string[] args)
         {
-            if (File.Exists(@"test.xml"))
+            ///xml file to be tested 
+            if (File.Exists(@"test3.xml"))
             {
+                XmlDocument doc = new XmlDocument();
+                doc.Load("test3.xml");
 
-                XDocument doc = XDocument.Load(@"test2.xml");
-                var allElements = doc.Descendants();
+                //Select the book node with the matching attribute value.
+                XmlNode nodeToFind;
+                XmlElement root = doc.DocumentElement;
 
-                //list
-                //XmlDocument xml = new XmlDocument();
-                //xml.LoadXml("test.xml");
+                XmlNodeList lstVideos = root.ChildNodes;
 
-                ///XmlNodeList xnList = xml.SelectNodes("/Root");
-                //  foreach (XmlNode xn in doc.Nodes())
-                //{                                        
-                ////Console.WriteLine("Name: {0} {1}", firstName, lastName);
-                //}
-                ////var nodes = doc.Nodes();
+                // Selects all the title elements that have an attribute named lang
+                nodeToFind = root.SelectSingleNode("//*");
 
-                XDocument doc2 = XDocument.Load(@"test2.xml");
-
-                XElement po = doc.Root.Element("Root");
-
-
-                ///IEnumerable<XElement> list1 = po.Elements();                
-
+                if (nodeToFind != null)
+                {
+                    if (ReadXML(nodeToFind))
+                    {
+                        Console.WriteLine("xml exists");
+                    }
+                    else {
+                        Console.WriteLine("xml does not exists");
+                    };
+                    // It was found, manipulate it.
+                }
+                else
+                {
+                    Console.WriteLine("Invalid xml");
+                }
                 Console.ReadLine();
             }
-        }
+        }      
 
-        public bool isExists(XmlNode nodes)
-        {            
+        private static bool ReadXML(XmlNode root)
+        {
+            if (root is XmlElement)
+            {
+                ////isExists(root);
+                //pass parent xml in which we want to check
+                if (!root.isExists("test.xml")) {
+                    return false;
+                }
+
+                if (root.HasChildNodes)
+                    ReadXML(root.FirstChild);
+                if (root.NextSibling != null)
+                    ReadXML(root.NextSibling);
+            }
+            else if (root is XmlText)
+            { }
+            else if (root is XmlComment)
+            { }
             return true;
-        }
-
+        }       
     }
 }
