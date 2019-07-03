@@ -14,10 +14,10 @@ namespace XMLContainsTest
         static void Main(string[] args)
         {
             ///xml file to be tested 
-            if (File.Exists(@"test3.xml"))
+            if (File.Exists(@"test2.xml"))
             {
                 XmlDocument doc = new XmlDocument();
-                doc.Load("test3.xml");
+                doc.Load("test2.xml");
 
                 //Select the book node with the matching attribute value.
                 XmlNode nodeToFind;
@@ -32,10 +32,10 @@ namespace XMLContainsTest
                 {
                     if (ReadXML(nodeToFind))
                     {
-                        Console.WriteLine("xml exists");
+                        Console.WriteLine("Given xml is subset of parent xml");
                     }
                     else {
-                        Console.WriteLine("xml does not exists");
+                        Console.WriteLine("Given xml is not subset of parent xml");
                     };
                     // It was found, manipulate it.
                 }
